@@ -1,0 +1,39 @@
+version: "3.8"
+services:
+
+  rule-store-db:
+    image: postgres:9.5.22
+    ports:
+      - 5432:5432
+    volumes:
+      - "rule-store-db:/var/lib/postgresql/data"
+    environment:
+      - POSTGRES_DB=rule_store
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+  zookeeper:
+    image: wurstmeister/zookeeper
+    ports:
+      - "2181"
+    hostname: zookeeper
+
+  kafka:
+    image: wurstmeister/kafka
+    command: [ start-kafka.sh ]
+    ports:
+      - 9092:9092
+    hostname: kafka
+    environment:
+      KAFKA_CREATE_TOPICS: "UploadFile:1:1,app_events:1:1" # topic:partition:replicas
+      KAFKA_ADVERTISED_HOST_NAME: kafka # docker-machine ip
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_PORT: 9092
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - "zookeeper"
+
+volumes:
+  rule-store-db:

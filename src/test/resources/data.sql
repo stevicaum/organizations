@@ -1,0 +1,4 @@
+-- INSERT INTO customer_status (customer_status_id, customer_status_name)VALUES(1, 'internal');
+-- INSERT INTO customer_status(customer_status_id, customer_status_name)VALUES(2, 'active');
+-- INSERT INTO customer_status(customer_status_id, customer_status_name)VALUES(3, 'inactive');
+-- INSERT INTO customer_status(customer_status_id, customer_status_name)VALUES(4, 'pending');

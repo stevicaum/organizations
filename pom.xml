@@ -1,0 +1,518 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.4.0</version>
+    </parent>
+
+    <groupId>com.usermind</groupId>
+    <artifactId>organizations</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <basepom.check.phase-checkstyle>validate</basepom.check.phase-checkstyle>
+        <basepom.check.phase-dependency-management>validate
+        </basepom.check.phase-dependency-management>
+        <basepom.check.phase-dependency-versions-check>validate
+        </basepom.check.phase-dependency-versions-check>
+        <spring.data.jpa>2.4.1</spring.data.jpa>
+        <spring.boot.version>2.4.0</spring.boot.version>
+        <um.fabric8.run.skip>false</um.fabric8.run.skip>
+        <um.wouterdanes.run.skip>true</um.wouterdanes.run.skip>
+        <dep.jacoco.version>0.8.4</dep.jacoco.version>
+        <spring.doc.version>1.4.8</spring.doc.version>
+        <postgres.version>42.2.18</postgres.version>
+        <dep.lombok.version>1.18.16</dep.lombok.version>
+        <dep.jackson.version>2.11.3</dep.jackson.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <!-- Import dependency management from Spring Boot -->
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring.boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>com.fasterxml.jackson.module</groupId>-->
+        <!--            <artifactId>jackson-module-parameter-names</artifactId>-->
+        <!--        </dependency>-->
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jetty</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.vladmihalcea</groupId>
+            <artifactId>hibernate-types-52</artifactId>
+            <version>2.7.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-commons</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.persistence</groupId>
+            <artifactId>jakarta.persistence-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.4.200</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>30.0-jre</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>2.1.5</version>
+        </dependency>
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-models</artifactId>
+            <version>2.1.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>4.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!--Postgres thing-->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>org.checkerframework</groupId>-->
+        <!--            <artifactId>checker-qual</artifactId>-->
+        <!--            <version>3.5.0</version>-->
+        <!--        </dependency>-->
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>${spring.doc.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-data-rest</artifactId>
+            <version>${spring.doc.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <!--    <build>-->
+    <!--        <pluginManagement>-->
+    <!--            <plugins>-->
+    <!--                    <plugin>-->
+    <!--                        <groupId>org.springframework.boot</groupId>-->
+    <!--                        <artifactId>spring-boot-maven-plugin</artifactId>-->
+    <!--                    </plugin>-->
+
+    <!--                <plugin>-->
+    <!--                    <groupId>org.apache.maven.plugins</groupId>-->
+    <!--                    <artifactId>maven-compiler-plugin</artifactId>-->
+    <!--                    <configuration>-->
+    <!--                        <release>${project.build.targetJdk}</release>-->
+    <!--                        <source>${project.build.targetJdk}</source>-->
+    <!--                        <target>${project.build.targetJdk}</target>-->
+    <!--                        <compilerArgs>-->
+    <!--                            <arg>-Xlint:all</arg>-->
+    <!--                            &lt;!&ndash; The "processing" linter warns about NotNull, et al. &ndash;&gt;-->
+    <!--                            <arg>-Xlint:-processing,-try</arg>-->
+    <!--                            <arg>-parameters</arg> &lt;!&ndash; for JDBI3 processing &ndash;&gt;-->
+    <!--                        </compilerArgs>-->
+    <!--                        <failOnWarning>${usermind.compiler.fail-warning}</failOnWarning>-->
+    <!--                    </configuration>-->
+    <!--                </plugin>-->
+    <!--                <plugin>-->
+    <!--                    <groupId>org.apache.maven.plugins</groupId>-->
+    <!--                    <artifactId>maven-surefire-plugin</artifactId>-->
+    <!--                    <configuration>-->
+    <!--                        <redirectTestOutputToFile>true</redirectTestOutputToFile>-->
+    <!--                    </configuration>-->
+    <!--                </plugin>-->
+    <!--                <plugin>-->
+    <!--                    <groupId>com.spotify</groupId>-->
+    <!--                    <artifactId>docker-maven-plugin</artifactId>-->
+    <!--                    <version>0.4.13</version>-->
+    <!--                    <configuration>-->
+    <!--                        <pullOnBuild>true</pullOnBuild>-->
+    <!--                    </configuration>-->
+    <!--                </plugin>-->
+    <!--                <plugin>-->
+    <!--                    <groupId>io.fabric8</groupId>-->
+    <!--                    <artifactId>docker-maven-plugin</artifactId>-->
+    <!--                    <version>0.21.0</version>-->
+    <!--                    <configuration>-->
+    <!--                        <autoPull>true</autoPull>-->
+    <!--                        <logDate>default</logDate>-->
+    <!--                        <useColor>false</useColor>-->
+    <!--                        <verbose>true</verbose>-->
+    <!--                        <skipRun>${um.fabric8.run.skip}</skipRun>-->
+    <!--                    </configuration>-->
+    <!--                </plugin>-->
+    <!--                <plugin>-->
+    <!--                    <groupId>net.wouterdanes.docker</groupId>-->
+    <!--                    <artifactId>docker-maven-plugin</artifactId>-->
+    <!--                    <version>5.0.0</version>-->
+    <!--                    <configuration>-->
+    <!--                        <skip>${um.wouterdanes.run.skip}</skip>-->
+    <!--                    </configuration>-->
+    <!--                </plugin>-->
+    <!--                <plugin>-->
+    <!--                    <groupId>org.jacoco</groupId>-->
+    <!--                    <artifactId>jacoco-maven-plugin</artifactId>-->
+    <!--                    <version>${dep.jacoco.version}</version>-->
+    <!--                    <executions>-->
+    <!--                        <execution>-->
+    <!--                            <id>default-prepare-agent</id>-->
+    <!--                            <goals>-->
+    <!--                                <goal>prepare-agent</goal>-->
+    <!--                            </goals>-->
+    <!--                        </execution>-->
+    <!--                        <execution>-->
+    <!--                            <id>default-prepare-agent-integration</id>-->
+    <!--                            <goals>-->
+    <!--                                <goal>prepare-agent-integration</goal>-->
+    <!--                            </goals>-->
+    <!--                        </execution>-->
+    <!--                        <execution>-->
+    <!--                            <id>default-report</id>-->
+    <!--                            <goals>-->
+    <!--                                <goal>report</goal>-->
+    <!--                            </goals>-->
+    <!--                        </execution>-->
+    <!--                        <execution>-->
+    <!--                            <id>default-report-integration</id>-->
+    <!--                            <goals>-->
+    <!--                                <goal>report-integration</goal>-->
+    <!--                            </goals>-->
+    <!--                        </execution>-->
+    <!--                        <execution>-->
+    <!--                            <id>default-check</id>-->
+    <!--                            <goals>-->
+    <!--                                <goal>check</goal>-->
+    <!--                            </goals>-->
+    <!--                            <configuration>-->
+    <!--                                <rules>-->
+    <!--                                    &lt;!&ndash;  implmentation is needed only for Maven 2  &ndash;&gt;-->
+    <!--                                    <rule implementation="org.jacoco.maven.RuleConfiguration">-->
+    <!--                                        <element>BUNDLE</element>-->
+    <!--                                    </rule>-->
+    <!--                                </rules>-->
+    <!--                            </configuration>-->
+    <!--                        </execution>-->
+    <!--                    </executions>-->
+    <!--                </plugin>-->
+    <!--                <plugin>-->
+    <!--                    <groupId>org.basepom.maven</groupId>-->
+    <!--                    <artifactId>duplicate-finder-maven-plugin</artifactId>-->
+    <!--                    <configuration>-->
+    <!--                        <ignoredClassPatterns>-->
+    <!--                            <ignoredClassPattern>org.apache.commons.logging.*$</ignoredClassPattern>-->
+    <!--                        </ignoredClassPatterns>-->
+
+    <!--                        <ignoredResourcePatterns combine.children="append">-->
+    <!--                            <ignoredResourcePattern>versioneye\.properties</ignoredResourcePattern>-->
+    <!--                            <ignoredResourcePattern>changelog.txt</ignoredResourcePattern>-->
+    <!--                        </ignoredResourcePatterns>-->
+    <!--                        <checkTestClasspath>false</checkTestClasspath>-->
+    <!--                    </configuration>-->
+    <!--                </plugin>-->
+    <!--                <plugin>-->
+    <!--                    <artifactId>maven-dependency-plugin</artifactId>-->
+    <!--                    <version>${dep.plugin.dependency.version}</version>-->
+    <!--                    <inherited>false</inherited>-->
+    <!--                    <dependencies>-->
+    <!--                        <dependency>-->
+    <!--                            <groupId>org.apache.maven.shared</groupId>-->
+    <!--                            <artifactId>maven-dependency-analyzer</artifactId>-->
+    <!--                            <version>1.11.1</version>-->
+    <!--                            <exclusions>-->
+    <!--                                <exclusion>-->
+    <!--                                    <artifactId>maven-project</artifactId>-->
+    <!--                                    <groupId>org.apache.maven</groupId>-->
+    <!--                                </exclusion>-->
+    <!--                            </exclusions>-->
+    <!--                        </dependency>-->
+    <!--                    </dependencies>-->
+    <!--                    <configuration>-->
+    <!--                        <ignoredUsedUndeclaredDependencies>-->
+
+    <!--                        </ignoredUsedUndeclaredDependencies>-->
+    <!--                        <ignoredUnusedDeclaredDependencies combine.children="append">-->
+
+    <!--                            <ignoredUnusedDeclaredDependency>org.checkerframework:checker-qual:jar:3.5.0</ignoredUnusedDeclaredDependency>-->
+    <!--                            <ignoredUnusedDeclaredDependency>org.springframework.boot:spring-boot-starter-web</ignoredUnusedDeclaredDependency>-->
+    <!--                            <ignoredUnusedDeclaredDependency> org.hibernate.validator:hibernate-validator</ignoredUnusedDeclaredDependency>-->
+    <!--                        </ignoredUnusedDeclaredDependencies>-->
+    <!--                    </configuration>-->
+    <!--                </plugin>-->
+
+
+    <!--            </plugins>-->
+    <!--        </pluginManagement>-->
+    <!--    </build>-->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.1</version>
+                <configuration>
+                    <excludes>
+                        <exclude>**/*FunctionalTest</exclude>
+                    </excludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>integration-test</phase>
+                        <configuration>
+                            <excludes>
+                                <exclude>none</exclude>
+                            </excludes>
+                            <includes>
+                                <include>**/*IT</include>
+                            </includes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.6</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <excludes>
+                        <!-- Exclude class from test coverage -->
+                        <exclude>**/*IT.java</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+        <!--        <resources>-->
+        <!--            <resource>-->
+        <!--                <directory>src/main/resources</directory>-->
+        <!--                <filtering>true</filtering>-->
+        <!--            </resource>-->
+        <!--        </resources>-->
+        <!--        <testResources>-->
+        <!--            <testResource>-->
+        <!--                <directory>src/test/resources</directory>-->
+        <!--                <filtering>true</filtering>-->
+        <!--            </testResource>-->
+        <!--        </testResources>-->
+    </build>
+    <profiles>
+        <profile>
+            <id>integration</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.22.1</version>
+                        <executions>
+                            <execution>
+                                <phase>integration-test</phase>
+                                <goals>
+                                    <goal>test</goal>
+                                </goals>
+                                <configuration>
+                                    <excludes>
+                                        <exclude>none</exclude>
+                                    </excludes>
+                                    <includes>
+                                        <include>**/*IT.java</include>
+                                    </includes>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>
