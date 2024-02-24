@@ -3,7 +3,6 @@ package com.usermind.rule.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.usermind.rule.config.security.SecurityConfig;
 import com.usermind.rule.repository.customerstatus.CustomerStatusRepository;
 import com.usermind.rule.repository.organization.OrganizationRepository;
 import com.usermind.rule.service.kafka.KafkaProducer;
@@ -16,7 +15,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 
 @Configuration
 @Import( {
-    SecurityConfig.class
+//    SecurityConfig.class
 })
 public class RuleAppConfig {
 

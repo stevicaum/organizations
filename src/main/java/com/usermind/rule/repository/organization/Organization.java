@@ -1,26 +1,13 @@
 package com.usermind.rule.repository.organization;
 
 import com.usermind.rule.repository.customerstatus.CustomerStatus;
-import com.vladmihalcea.hibernate.type.json.JsonStringType;
-import java.time.LocalDateTime;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-import javax.persistence.Version;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+
+import io.hypersistence.utils.hibernate.type.json.JsonType;
+import jakarta.persistence.*;
+import lombok.*;
 import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
+
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -30,7 +17,6 @@ import org.hibernate.annotations.TypeDef;
 @Table(name = "`Organizations`")
 //@Table(name = "organizations")
 @Builder
-@TypeDef(name = "json", typeClass = JsonStringType.class)
 public class Organization {
   @Id
   @SequenceGenerator(name = "Customers_id_seq", sequenceName = "Customers_id_seq", allocationSize = 1)
@@ -48,7 +34,7 @@ public class Organization {
   @Column(name = "version",nullable = false)
   @Version
   private Long version;
-  @Type(type = "json")
+  @Type(JsonType.class)
   @Column(columnDefinition = "json")
   private String configurations;
 

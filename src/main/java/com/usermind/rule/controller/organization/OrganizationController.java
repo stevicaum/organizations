@@ -4,9 +4,10 @@ import com.usermind.rule.controller.response.PageResult;
 import com.usermind.rule.service.organization.OrganizationService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
-import javax.validation.Valid;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.PositiveOrZero;
+
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

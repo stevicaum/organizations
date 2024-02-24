@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.4.0</version>
+        <version>3.2.3</version>
     </parent>
 
     <groupId>com.usermind</groupId>
@@ -20,14 +20,14 @@
         </basepom.check.phase-dependency-management>
         <basepom.check.phase-dependency-versions-check>validate
         </basepom.check.phase-dependency-versions-check>
-        <spring.data.jpa>2.4.1</spring.data.jpa>
-        <spring.boot.version>2.4.0</spring.boot.version>
+        <spring.data.jpa>3.2.3</spring.data.jpa>
+        <spring.boot.version>3.2.3</spring.boot.version>
         <um.fabric8.run.skip>false</um.fabric8.run.skip>
         <um.wouterdanes.run.skip>true</um.wouterdanes.run.skip>
         <dep.jacoco.version>0.8.4</dep.jacoco.version>
-        <spring.doc.version>1.4.8</spring.doc.version>
+        <spring.doc.version>1.7.0</spring.doc.version>
         <postgres.version>42.2.18</postgres.version>
-        <dep.lombok.version>1.18.16</dep.lombok.version>
+        <dep.lombok.version>1.18.30</dep.lombok.version>
         <dep.jackson.version>2.11.3</dep.jackson.version>
     </properties>
 
@@ -128,9 +128,9 @@
             <artifactId>hibernate-validator</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.vladmihalcea</groupId>
-            <artifactId>hibernate-types-52</artifactId>
-            <version>2.7.1</version>
+            <groupId>org.hibernate.orm</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>6.4.2.Final</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.data</groupId>
@@ -232,6 +232,25 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/jakarta.activation/jakarta.activation-api -->
+        <dependency>
+            <groupId>jakarta.activation</groupId>
+            <artifactId>jakarta.activation-api</artifactId>
+            <version>2.1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.vladmihalcea</groupId>
+            <artifactId>hibernate-types-52</artifactId>
+            <version>2.9.7</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/io.hypersistence/hypersistence-utils-hibernate-63 -->
+        <dependency>
+            <groupId>io.hypersistence</groupId>
+            <artifactId>hypersistence-utils-hibernate-63</artifactId>
+            <version>3.7.3</version>
+        </dependency>
+
+
 
         <dependency>
             <groupId>org.springdoc</groupId>

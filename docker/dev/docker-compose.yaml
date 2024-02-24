@@ -4,7 +4,7 @@ services:
   rule-store-db:
     image: postgres:9.5.22
     ports:
-      - 5432:5432
+      - 5433:5432
     volumes:
       - "rule-store-db:/var/lib/postgresql/data"
     environment:
