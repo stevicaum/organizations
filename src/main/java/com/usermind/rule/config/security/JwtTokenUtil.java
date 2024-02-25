@@ -9,8 +9,14 @@ import java.util.Date;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
+
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 
 public class JwtTokenUtil implements Serializable {
 
@@ -20,7 +26,7 @@ public class JwtTokenUtil implements Serializable {
     System.out.println(JwtTokenUtil.generateToken(test, 360000));
   }
 
-  public static final String SIGNING_KEY = "usermindkey";
+  public static final String SIGNING_KEY = "stevicaArsicSigningKeyMustHave256ByesInSigningKey";
 
 
   public static String getUsernameFromToken(String token) {
@@ -36,12 +42,6 @@ public class JwtTokenUtil implements Serializable {
     return claimsResolver.apply(claims);
   }
 
-  private static Claims getAllClaimsFromToken(String token) {
-    return Jwts.parser()
-        .setSigningKey(SIGNING_KEY)
-        .parseClaimsJws(token)
-        .getBody();
-  }
 
   public static Boolean isTokenExpired(String token) {
     try {
@@ -53,15 +53,25 @@ public class JwtTokenUtil implements Serializable {
   }
 
   public static String generateToken(User user, long validitySeconds) {
-    Claims claims = Jwts.claims().setSubject(user.getUsername());
-    claims.put("authorities", user.getAuthorities());
-
+    Claims claims = Jwts.claims().subject(user.getUsername()).add("authorities", user.getAuthorities()).build();
+//    claims.put("authorities", user.getAuthorities());
     return Jwts.builder()
         .setClaims(claims)
-        .setIssuer("http://usermind.com")
+        .setIssuer("http://stevica.com")
         .setIssuedAt(new Date(System.currentTimeMillis()))
         .setExpiration(new Date(System.currentTimeMillis() + validitySeconds * 1000))
-        .signWith(SignatureAlgorithm.HS256, SIGNING_KEY)
+        .signWith(SignatureAlgorithm.HS256, SIGNING_KEY.getBytes())
         .compact();
+  }
+
+  private static Claims getAllClaimsFromToken(String token) {
+    SecretKeySpec secretKeySpec = new SecretKeySpec(SIGNING_KEY.getBytes(), SignatureAlgorithm.HS256.getJcaName());
+    return Jwts.parser()
+            .verifyWith(secretKeySpec).build()
+            .parseSignedClaims(token).getPayload();
+//    return Jwts.parser()
+//        .setSigningKey(SIGNING_KEY)
+//        .parseClaimsJws(token)
+//        .getBody();
   }
 }
